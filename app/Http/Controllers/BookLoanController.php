@@ -13,14 +13,13 @@ class BookLoanController extends Controller
      }
 
      public function getLoanedBookCount($member_id) {
-        $count = BookLoan::where('fk_member_id', 1)
+        $count = BookLoan::where('fk_member_id', $member_id)
             ->whereNull('return_date')
             ->count();
         return $count;
      }
       
      public function insert(Request $request) {
-        // TODO Check that a LibraryStock has copies of the book available before commiting
         $fk_member_id = $request->input('member_id');
         $fk_stock_id = $request->input('stock_id');
         $loan_date = $request->input('loan_date');
