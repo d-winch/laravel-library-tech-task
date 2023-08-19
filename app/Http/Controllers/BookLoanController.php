@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookLoan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,8 +13,9 @@ class BookLoanController extends Controller
      }
 
      public function getLoanedBookCount($member_id) {
-        $count = DB::select('select COUNT(*) from book_loans WHERE fk_member_id = 1
-        AND return_date IS NULL');
+        $count = BookLoan::where('fk_member_id', 1)
+            ->whereNull('return_date')
+            ->count();
         return $count;
      }
       
